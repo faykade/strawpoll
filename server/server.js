@@ -7,7 +7,6 @@ var Poll = require('./models/poll');
 
 
 
-mongoose.Promise = global.Promise;
 mongoose.connect(config.server.database_host);
 app.use(bodyParser.urlencoded({
     extended: true
@@ -53,24 +52,6 @@ app.post('/api/poll', function(req, res){
   }
 });
 
-// ADD VOTE  -------------------------------------------------------------------
-app.put('/api/poll/:poll_id/:option_id', function(req, res){
-  if(req.params.poll_id && req.params.option_id){
-    Poll.findOneAndUpdate(
-      {'_id': req.params.poll_id, 'poll_options._id' : req.params.option_id},
-      {'$inc': {'poll_votes' : 1, 'poll_options.$.vote_count': 1}},
-      {new: true},
-      function(err, poll){
-        if(err){
-          res.json(errorResponse("Error updating vote"));
-        } else {
-          res.json(successResponse("Successfully updated vote", poll));
-        }
-      }
-    );
-  }
-});
-
 // GET A POLL ------------------------------------------------------------------
 app.get('/api/poll/:poll_id', function(req, res){
   if(req.params.poll_id){
@@ -81,6 +62,24 @@ app.get('/api/poll/:poll_id', function(req, res){
         res.json(successResponse("Found poll", poll));
       }
     });
+  }
+});
+
+// ADD VOTE  -------------------------------------------------------------------
+app.put('/api/poll/:poll_id', function(req, res){
+  if(req.params.poll_id && req.body && req.body.option_id){
+    Poll.findOneAndUpdate(
+      {'_id': req.params.poll_id, 'poll_options._id' : req.body.option_id},
+      {'$inc': {'poll_votes' : 1, 'poll_options.$.vote_count': 1}},
+      {new: true},
+      function(err, poll){
+        if(err){
+          res.json(errorResponse("Error updating vote"));
+        } else {
+          res.json(successResponse("Successfully updated vote", poll));
+        }
+      }
+    );
   }
 });
 

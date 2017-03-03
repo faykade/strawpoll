@@ -2,27 +2,8 @@
 <head><title>Testing Stub</title></head>
 <body>
   <button class="new_poll">New Poll</button>
+  <button class="add_vote">Add Vote</button>
+  <button class="get_poll">Get Poll</button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script>
-    $('.new_poll').on('click', function(e){
-      $.ajax({
-        url: "http://localhost:3000/api/poll",
-        method: "POST",
-        dataType: 'json',
-        data: {
-          poll_name: "Testing",
-          poll_options: [
-            {
-              option_name: "test",
-              vote_count: 0,
-            },
-          ],
-        },
-
-      })
-        .done(function(data){
-          console.log(data);
-        });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
