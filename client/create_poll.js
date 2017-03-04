@@ -36,11 +36,16 @@ var makeRequest = function(req){
     url: "http://localhost:3000/api/poll",
     method: "POST",
     dataType: 'json',
-    data: req,
+    data: req
   })
     .done(function(res){
-      console.log(res);
-      alert(res.data._id);
+      console.log(res.data._id);
+      console.log('<a href="poll_view.html?poll=' + res.data._id + '>Link to Poll</a>');
+      console.log($('.poll_link'));
+      $('div#poll_link').html('<a href="poll_view.html?poll_id=' + res.data._id + '">Link to Poll</a>');
+    })
+    .fail(function(xhr, status, err){
+      alert("Error creating poll, please try again");
     });
 };
 
@@ -63,9 +68,10 @@ var createPoll = function(e){
   }
 };
 
+$(function(){
+  $(document).on('click', '.add_option', addOption);
 
-$(document).on('click', '.add_option', addOption);
+  $(document).on('click', '.remove_option', removeOption);
 
-$(document).on('click', '.remove_option', removeOption);
-
-$('#create_poll').on('submit', createPoll);
+  $('#create_poll').on('submit', createPoll);
+});

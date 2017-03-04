@@ -53,9 +53,9 @@ app.post('/api/poll', function(req, res){
 });
 
 // GET A POLL ------------------------------------------------------------------
-app.get('/api/poll/:poll_id', function(req, res){
-  if(req.params.poll_id){
-    Poll.findOne({'_id': req.params.poll_id}, function(err, poll){
+app.get('/api/poll', function(req, res){
+  if(req.query && req.query.poll_id){
+    Poll.findOne({'_id': req.query.poll_id}, function(err, poll){
       if(err){
         res.json(errorResponse("Poll ID not found in database"));
       } else {
@@ -66,10 +66,10 @@ app.get('/api/poll/:poll_id', function(req, res){
 });
 
 // ADD VOTE  -------------------------------------------------------------------
-app.put('/api/poll/:poll_id', function(req, res){
-  if(req.params.poll_id && req.body && req.body.option_id){
+app.put('/api/poll', function(req, res){
+  if(req.body && req.body.poll_id && req.body.option_id){
     Poll.findOneAndUpdate(
-      {'_id': req.params.poll_id, 'poll_options._id' : req.body.option_id},
+      {'_id': req.body.poll_id, 'poll_options._id' : req.body.option_id},
       {'$inc': {'poll_votes' : 1, 'poll_options.$.vote_count': 1}},
       {new: true},
       function(err, poll){
