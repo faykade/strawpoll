@@ -1,12 +1,10 @@
 var displayPollResults = function(res){
-  console.log(res);
   var $container = $('.poll_results');
   var results = [];
   $.each(res.data.poll_options, function(index, result){
-    var currentResult = '<tr><td>' + result.option_name + '</td><td>' + result.vote_count + '</td></tr>';
+    var currentResult = '<tr><td>' + escapeHtml(result.option_name) + '</td><td>' + escapeHtml(result.vote_count) + '</td></tr>';
     results.push(currentResult);
   });
-  console.log(results);
   $container.append(results.join());
 };
 

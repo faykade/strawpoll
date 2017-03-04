@@ -37,8 +37,16 @@ POLL ROUTES
 app.post('/api/poll', function(req, res){
   if(req.body && req.body.poll_name && req.body.poll_options){
     var newPoll = new Poll();
+    var constructedOptions = [];
+    var options = req.body.poll_options;
+    options.forEach(function(currentOption){
+      constructedOptions.push({
+        option_name: currentOption,
+        vote_count: 0
+      });
+    });
     newPoll.poll_name = req.body.poll_name;
-    newPoll.poll_options = req.body.poll_options;
+    newPoll.poll_options = constructedOptions;
     newPoll.poll_votes = 0;
     newPoll.save(function(err,poll){
       if(err){

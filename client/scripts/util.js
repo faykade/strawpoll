@@ -23,3 +23,10 @@ var requestPoll = function(id, callback){
       alert("Error finding poll, please try again");
     });
 };
+
+
+var escapeHtml = function(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}

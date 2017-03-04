@@ -1,12 +1,11 @@
 var displayPollOptions = function(pollData){
-  console.log(pollData);
   var $container = $('.options_container');
   var $titleContainer = $('.poll_name');
-  $titleContainer.html(pollData.data.poll_name);
+  $titleContainer.html(escapeHtml(pollData.data.poll_name));
   var options = [];
   $.each(pollData.data.poll_options, function(index, option){
     var checkedStatus = index === 0 ? ' checked' : '';
-    var optionHTML = '<input type="radio" name="option" value="' + option._id + '"' + checkedStatus + '>' + option.option_name;
+    var optionHTML = '<label><input type="radio" name="option" value="' + option._id + '"' + checkedStatus + '>' + escapeHtml(option.option_name) + '</label>';
     options.push(optionHTML);
   });
   var allOptions = options.join('</br>');
@@ -15,7 +14,6 @@ var displayPollOptions = function(pollData){
 
 var addVote = function(e, poll, callback){
   e.preventDefault();
-  console.log("ADDING VOTE");
   var selectedOption = $('#vote_form input[type="radio"]:checked').val();
   $.ajax({
     url: "http://localhost:3000/api/poll",
@@ -39,7 +37,7 @@ $(function(){
     requestPoll(pollID, displayPollOptions);
     $(document).on('submit', '#vote_form', function(e){
       addVote(e, pollID, function(){
-        window.location.href = './poll_results.html?poll_id=' + pollID;
+        window.location.href = 'poll_results.html?poll_id=' + pollID;
       });
     });
   }

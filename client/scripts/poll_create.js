@@ -4,10 +4,10 @@ var addOption = function(e){
   var input = '<input type="text" placeholder="Option..." class="poll_option">';
   var button = '<button class="remove_option">-</button>';
   $('.options').append(div + input + button + '</div>');
+  $('.options input[type=text]').last().focus();
 };
 
 var removeOption = function(e){
-  console.log("In remove");
   e.preventDefault();
   var $parent = $(this).parent();
   $parent.remove();
@@ -15,16 +15,15 @@ var removeOption = function(e){
 
 var buildRequest = function($title, $options){
   var ajaxData = {
-    poll_name: $title.val(),
+    poll_name: $title.val().trim(),
     poll_options: []
   };
 
   $.each($options, function(index, option){
-    var currentOption = {
-      option_name: $(option).val(),
-      vote_count: 0
-    };
-    ajaxData.poll_options.push(currentOption);
+    var $option = $(option);
+    if($option.val() && $option.val().trim()){
+      ajaxData.poll_options.push($option.val().trim());
+    }
   });
 
   return ajaxData;
