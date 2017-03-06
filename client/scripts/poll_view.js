@@ -1,15 +1,19 @@
 var displayPollOptions = function(pollData){
-  var $container = $('.options_container');
-  var $titleContainer = $('.poll_name');
-  $titleContainer.html(escapeHtml(pollData.data.poll_name));
-  var options = [];
-  $.each(pollData.data.poll_options, function(index, option){
-    var checkedStatus = index === 0 ? ' checked' : '';
-    var optionHTML = '<label><input type="radio" name="option" value="' + option._id + '"' + checkedStatus + '>' + escapeHtml(option.option_name) + '</label>';
-    options.push(optionHTML);
-  });
-  var allOptions = options.join('</br>');
-  $container.html(allOptions);
+  if(pollData && pollData.data && pollData.success){
+    var $container = $('.options_container');
+    var $titleContainer = $('.poll_name');
+    $titleContainer.html(escapeHtml(pollData.data.poll_name));
+    var options = [];
+    $.each(pollData.data.poll_options, function(index, option){
+      var checkedStatus = index === 0 ? ' checked' : '';
+      var optionHTML = '<label><input type="radio" name="option" value="' + option._id + '"' + checkedStatus + '>' + escapeHtml(option.option_name) + '</label>';
+      options.push(optionHTML);
+    });
+    var allOptions = options.join('</br>');
+    $container.html(allOptions);
+  } else {
+    alert("Sorry, there was an error retrieving the poll data");
+  }
 };
 
 var addVote = function(e, poll, callback){
