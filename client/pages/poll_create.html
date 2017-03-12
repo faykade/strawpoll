@@ -2,23 +2,28 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Testing Stub</title>
+  <title>Create a Poll</title>
+  <link rel="stylesheet" type="text/css" href="../styles/styles.css">
 </head>
 <body>
-  <h1>Create a Poll</h1>
-  <form id="create_poll" name="create_poll" action="#" method="POST">
-    <input type="text" placeholder="Poll Title" name="poll_title" class="poll_title"></br>
-    <div class="options">
-      <div class="option_line">
-        <input type="text" placeholder="Option..." class="poll_option">
-        <button class="remove_option">-</button>
+  <div class="content">
+    <h1>Create a Poll</h1>
+    <form id="create_poll" name="create_poll" action="#" method="POST">
+      <input type="text" placeholder="Poll Title" name="poll_title" class="poll_title"></br>
+      <div class="options">
+        <div class="option_line">
+          <input type="text" placeholder="Option..." class="poll_option">
+          <button type="button" class="remove_option" tabindex="-1">-</button>
+        </div>
       </div>
+      <div class="buttons_container">
+        <button type="button" class="add_option">+</button>
+        <button type="reset">Clear</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <div class="poll_link">
     </div>
-    <button class="add_option">+</button>
-    <button type="reset">Clear</button>
-    <button type="submit">Submit</button>
-  </form>
-  <div class="poll_link">
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="../scripts/util.js"></script>

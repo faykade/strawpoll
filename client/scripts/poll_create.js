@@ -1,14 +1,16 @@
 var addOption = function(e){
   e.preventDefault();
+  e.stopPropagation();
   var div = '<div class="option_line">';
   var input = '<input type="text" placeholder="Option..." class="poll_option">';
-  var button = '<button class="remove_option">-</button>';
+  var button = '<button type="button" class="remove_option" tabindex="-1">-</button>';
   $('.options').append(div + input + button + '</div>');
   $('.options input[type=text]').last().focus();
 };
 
 var removeOption = function(e){
   e.preventDefault();
+  e.stopPropagation();
   var $parent = $(this).parent();
   $parent.remove();
 };
@@ -60,12 +62,16 @@ var areValidOptions = function($options){
 
 var createPoll = function(e){
   e.preventDefault();
+  e.stopPropagation();
   var $title = $('.poll_title');
   var $options = $('.poll_option');
 
   if(isValidTitle($title) && areValidOptions($options)){
     var request = buildRequest($title, $options);
     makeRequest(request, displayPollLink);
+  }
+  else {
+    alert("Invalid data to make a poll");
   }
 };
 

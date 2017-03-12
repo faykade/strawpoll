@@ -2,15 +2,19 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Testing Stub</title>
+  <title>Poll View</title>
+  <link rel="stylesheet" type="text/css" href="../styles/styles.css">
 </head>
 <body>
-  <h1 class="poll_name"></h1>
-  <form id="vote_form">
-    <div class="options_container">
-    </div>
-    <button type="submit">Cast Vote</button>
-  </form>
+  <div class="content">
+    <h1 class="poll_name"></h1>
+    <form id="vote_form">
+      <div class="options_container">
+      </div>
+      <div class="buttons_container">
+        <button type="submit" class="cast_vote">Cast Vote</button>
+      </div>
+    </form>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="../scripts/util.js"></script>
